@@ -112,7 +112,6 @@ Install my-project with npm
 (for all the following :
 prop-uno-server
 prop-uno-database-watcher
-prop-uno-face-detection
 prop-uno-application
 )
 
@@ -120,10 +119,11 @@ prop-uno-application
   npm install
 ```
 
-project run with 
+### prop-uno-face-detection INSTALATION
+(force is required for the old and deprecated libraries)
 
 ```bash
-  npm run start
+  npm install --force 
 ```
 
 ## Order to start application
