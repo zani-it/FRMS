@@ -47,7 +47,7 @@ if (medicalCondition) setClause += `medicalCondition='${medicalCondition}', `;
 if (medicalSpecialty) setClause += `medicalSpecialty='${medicalSpecialty}', `;
 if (details) setClause += `details='${details}', `;
 if (faceUuid ?? '') setClause += `face_uuid='${faceUuid}', `;
-if (email ?? '') setClause += `email='${email})`;
+if (email ?? '') setClause += `email='${email}', `;
 if (recognizeUuid ?? '') setClause += `recognize_uuid='${recognizeUuid}', `;
 if (originalFilename ?? '') setClause += `original_filename='${originalFilename}', `;
 if (image ?? '') setClause += `image='${image}', `;
@@ -62,23 +62,23 @@ connection.query(selectQuery, (err, rows) => {
   if (rows.length === 0) {
     // Email does not exist in the database, so insert a new row
     const insertQuery = `INSERT INTO FRMSTABLE (firstName, lastName, email, sexAtBirth, dateOfBirth, age, medicalCondition, medicalSpecialty, details, face_uuid, recognize_uuid, original_filename, image) VALUES ('${firstName}', '${lastName}', '${email}', '${sexAtBirth}', '${dateOfBirth}', '${age}', '${medicalCondition}', '${medicalSpecialty}', '${details}', '${faceUuid}', '${recognizeUuid}', '${originalFilename}', '${image}')`;
-
+  
     connection.query(insertQuery, (err, result) => {
       if (err) throw err;
       console.log(`New client inserted: ${JSON.stringify(result)}`);
     });
   } else {
     // Email already exists in the database, so update the existing row
-    let setClause = "";
     // Build the SET clause dynamically based on the fields that have a value in the JSON file
     // ...
     const updateQuery = `UPDATE FRMSTABLE SET ${setClause} WHERE email='${email}'`;
-
+  
     connection.query(updateQuery, (err, result) => {
       if (err) throw err;
       console.log(`Client updated: ${JSON.stringify(result)}`);
     });
   }
+  
 });
 
 

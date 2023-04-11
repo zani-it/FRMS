@@ -6,8 +6,8 @@
     "sexAtBirth": "male",
     "dateOfBirth": "1988-03-09T00:00:00.000Z",
     "age": 35,
-    "medicalCondition": "image-exam",
+    "medicalCondition": "walk-in",
     "medicalSpecialty": "Orthopedics",
-    "details": "MRI for Knee"
+    "details": "visiting for DURALONE injection (scheduled)"
   }
 ]
