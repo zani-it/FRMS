@@ -1,0 +1,13 @@
+[
+  {
+    "firstName": "Rafael123",
+    "lastName": "Maldonado1",
+    "email": "Rafael@gmail.com",
+    "sexAtBirth": "male",
+    "dateOfBirth": "2002-11-30T19:17:22.000Z",
+    "age": 20,
+    "medicalCondition": "walk-in",
+    "medicalSpecialty": "Pulmonology",
+    "details": "difficult breathing"
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "firstName": "Thiago",
+    "lastName": "Zani",
+    "email": "zanit@me.com",
+    "sexAtBirth": "male",
+    "dateOfBirth": "1988-03-09T00:00:00.000Z",
+    "age": 35,
+    "medicalCondition": "image-exam",
+    "medicalSpecialty": "Orthopedics",
+    "details": "MRI for Knee"
+  }
+]

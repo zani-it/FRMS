@@ -1,0 +1,13 @@
+[
+  {
+    "firstName": "Guilherme A",
+    "lastName": "Varandas",
+    "email": "guilherme@gmail.com",
+    "sexAtBirth": "male",
+    "dateOfBirth": "1987-08-25T21:37:06.000Z",
+    "age": 35,
+    "medicalCondition": "image-exam",
+    "medicalSpecialty": "Cardiology",
+    "details": "cardio treadmill test (gym membership renewal)."
+  }
+]
