@@ -1,10 +1,21 @@
-td, th{
-    min-width: 15rem;
-}
-.header__table {
-    background-color: grey;
-}
 
-.waitlist__button{
-    padding: 0.5rem 1rem;
-}
+
+.table {
+    &__header {
+      background-color: grey;
+      margin-bottom: 2rem;
+      border-radius: .3125rem;
+    }
+    
+    &__cell {
+      min-width: 15rem;
+    }
+  }
+  
+  // Element styles
+  .waitlist {
+    &__button {
+      padding: 0.5rem 1rem;
+    }
+  }
+  

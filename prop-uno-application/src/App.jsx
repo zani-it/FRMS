@@ -35,6 +35,17 @@ function App() {
     connectToWebSocket();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Check for WebSocket messages every 5 seconds
+      if (socket) {
+        socket.send("ping");
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [socket]);
+
   function getTitleForRoute(route, location) {
     switch (route) {
       case '/':
@@ -60,9 +71,9 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App__content">
         <Header />
-        <header className="App-header">
+        <header className="App__header">
           <Routes>
             <Route path="*" element={<HomeMenu />} />
             <Route path="/patient-details" element={<PatientDetails />} />
@@ -75,5 +86,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;

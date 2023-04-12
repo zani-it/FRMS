@@ -206,7 +206,7 @@ function Form() {
 
   return (
     <form className="form__body">
-      <h1 className="form__header"> welcome</h1>
+      <h1 className="form__header"> Patient Form </h1>
       <label className="centralized">
         <h3>Email:</h3>
         <input  className=""type="email" value={email} onChange={handleEmailChange} />
@@ -221,10 +221,10 @@ function Form() {
           }
           maxDate={new Date()}
           showYearDropdown
-          scrollabeYearDropdown
+       
           showMonthDropdown
           showDayDropdown
-          scrollableMonthYearDropdown
+   
           dateFormat="yyyy-MM-dd"
         />
       </label>
@@ -244,7 +244,7 @@ function Form() {
 
       <label className="centralized">
        <h3> Sex at Birth:</h3>
-        <div>
+        <div className="input__sex">
           <label>
             <input
               type="radio"
@@ -291,7 +291,7 @@ function Form() {
       </label>
       <br />
       < label className="centralized">
-        Medical Specialty:
+      <h3>Medical Specialty:</h3>
         <select
           value={medicalSpecialty}
           onChange={handleMedicalSpecialtyChange}
@@ -306,7 +306,7 @@ function Form() {
       </label>
       <br />
       <label className="form__details centralized">
-        Details:
+      <h3>Details:</h3>
         <textarea className="form__details-textarea"value={details} onChange={handleDetailsChange} />
       </label>
       <br />
@@ -315,27 +315,28 @@ function Form() {
         <button className="button-capture" onClick={handleImageCapture}>Capture Image</button>
       </div>
       <br />
-      <div>
+      <div className="form__image">
         {imageData && (
-          <img src={imageData} alt="Captured Image" width="320" height="240" />
+          <img  className="form__image-item" src={imageData} alt="Captured Image" width="320" height="240" margin="0.5 0"/>
         )}
       </div>
-      <div>
+      <div className="form__image">
         {imageExistingData && (
-          <img
+          <img className="form__image-item"
             src={`data:image/jpeg;base64,${imageExistingData}`}
             alt="image on file"
             width="320"
             height="240"
+            margin="0.5rem 0"
           />
         )}
       </div>
       <br />
-      <div className="forms__button-wrapper">
-      <button  className="forms__button" type="submit" onClick={handleSubmit}>
+      <div className="form__button-wrapper">
+      <button  className="form__button" type="submit" onClick={handleSubmit}>
         Submit
       </button>
-      <button  className="forms__button" type="button" onClick={handleNewForm}>
+      <button  className="form__button" type="button" onClick={handleNewForm}>
         New Form
       </button>
       </div>

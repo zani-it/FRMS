@@ -5,7 +5,7 @@ function HomeMenu() {
     <div className="home-menu">
       <div>
         {" "}
-        <h1>"Welcome to FRMS (Fast Registry Management System)"</h1>{" "}
+        <h1>FRMS<br/>(Fast Registry Management System)</h1>{" "}
       </div>
       <div className="home-menu__wrapper">
         <div>

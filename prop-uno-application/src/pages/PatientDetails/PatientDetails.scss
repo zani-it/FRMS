@@ -23,9 +23,12 @@
   margin: 2rem;
 }
 
-input, .birth-input{
-    margin-right: 0;
+input,
+.birth-input {
+  margin-right: 0;
+  height: 2rem;
 }
+
 .form__body {
   display: flex;
   flex-direction: column;
@@ -42,20 +45,40 @@ input, .birth-input{
   margin: 0.5rem 0rem;
 }
 
-.birthday{
-    margin-right: -19.5rem;
+.details__button {
+  width: 48.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+}
+.details__button-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.details__button {
-    width: 48.5%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2rem;
-}
-.details__button-wrapper{
-    width: 100%;
+.react-datepicker {
+  &__input-container {
     display: flex;
     flex-direction: row;
+    align-items: flex-end;
+    justify-content: end;
+  }
+}
+
+.input {
+  &__sex {
+    display: flex;
     justify-content: space-between;
+    width: 25%;
+    & > label {
+      align-items: center;
+      display: flex;
+      & > span {
+        margin: 0 0.5rem;
+      }
+    }
+  }
 }

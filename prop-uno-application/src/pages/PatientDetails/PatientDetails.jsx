@@ -164,7 +164,7 @@ function PatientDetails() {
 
   return (
     <form className="form__body">
-      <h1 className="form__header"> welcome</h1>
+      <h1 className="form__header"> Patient Details</h1>
       <label className="centralized">
         <h3>Email:</h3>
         <input
@@ -204,7 +204,7 @@ function PatientDetails() {
 
       <label className="centralized">
         <h3> Sex at Birth:</h3>
-        <div>
+        <div className="input__sex">
           <label>
             <input
               type="radio"
@@ -251,7 +251,7 @@ function PatientDetails() {
       </label>
       <br />
       <label className="centralized">
-        Medical Specialty:
+        <h3>Medical Specialty:</h3>
         <select
           value={medicalSpecialty}
           onChange={handleMedicalSpecialtyChange}
@@ -266,7 +266,7 @@ function PatientDetails() {
       </label>
       <br />
       <label className="form__details centralized">
-        Details:
+      <h3>Details:</h3>
         <textarea value={details} onChange={handleDetailsChange} />
       </label>
       <br />
