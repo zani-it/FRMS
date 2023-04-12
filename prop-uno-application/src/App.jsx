@@ -35,17 +35,6 @@ function App() {
     connectToWebSocket();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Check for WebSocket messages every 5 seconds
-      if (socket) {
-        socket.send("ping");
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [socket]);
-
   function getTitleForRoute(route, location) {
     switch (route) {
       case '/':
