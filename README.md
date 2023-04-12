@@ -16,7 +16,7 @@ the client that have done check in thw waitlist will have his health information
   POST /detect
 ```
 
-| Parameter | Type     | Description                |
+| Body | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `image(base_64)` | `string` |
 
@@ -27,7 +27,7 @@ takes the image that was captured and copare with similar landmarks for faces in
 ```http
   POST "https://www.betafaceapi.com/api/v2/media"
 ```
-| Parameter | Type     | Description                |
+| Body | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `image(base_64)` | `string` | Required api_key    |
 `recognize_targets` | `string`  |
@@ -42,7 +42,7 @@ Pront a form to add a patient in the database so in the future it can be found a
   POST "https://www.betafaceapi.com/api/v2/media"
 ```
 
-  | Parameter | Type     | Description                |
+  | Body | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `image(base_64)` | `string` | Required api_key    |
 |`recognize_targets` | `string`  |
@@ -57,7 +57,7 @@ form to add a patient in the database so in the future it can be found and retur
   post /modify
 ```
 
-| Parameter | Type     | Description                       |
+| Body | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `firstName` | `string` 
 | `lastName` | `string` 
@@ -77,7 +77,7 @@ Modify a client in the mySQL database and update the clients with the new inform
   post /find
 ```
 
-| Parameter | Type     | Description                       |
+| Body | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `email` | `string` 
 
