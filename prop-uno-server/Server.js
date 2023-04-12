@@ -7,6 +7,11 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const mysql = require("mysql2/promise");
 const { WebSocketServer } = require("ws");
+require ('dotenv').config();
+
+
+
+const port = process.env.PORT || 3001;
 
 const app = express();
 
@@ -17,23 +22,28 @@ app.use(bodyParser.json());
 
 const getConnection = async () => {
   return mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "Hexano06#",
-    database: "FARMS",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
   });
 };
 
-const wss = new WebSocketServer({ port: 3333 });
+const WebSocket = require('ws');
+const WSPORT = process.env.WSPORT;
+
+const wss = new WebSocket.Server({ port: WSPORT });
 
 wss.on("connection", function connection(ws) {
-
   ws.on("error", console.error);
-
+  ws.on("ping", function() {
+    console.log("connection active");
+  });
   ws.on("open", function open() {
     ws.send("Connection Open");
   });
 });
+
 
   app.post("/detect", async (req, res) => {
     try {
@@ -278,6 +288,6 @@ wss.on("connection", function connection(ws) {
   });
 
 
-app.listen(3001, () => {
-  console.log("Server running on port 3001");
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

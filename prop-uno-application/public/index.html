@@ -6,9 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRMS</title>
 </head>
+
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div class="full-size" id="root"></div>
-    
-</body>
+    <div   class="full-size" id="root"></div>
+    <script>
+      window.process = {
+        env: {
+          PORT: 3000,
+          API_URL: 'http://localhost:'
+        }
+      };
+    </script>
+    <script src="your-bundled-react-app.js"></script>
+  </body>
 </html>
