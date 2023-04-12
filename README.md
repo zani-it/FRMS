@@ -3,8 +3,8 @@
 
 This application is aimed to run in a local closed network hence no further security mesures where taken.
 
-This application manages patient forms for healthcare facilities, detects existing patients in waitrooms or identification kiosks and add their name to a waitlist.
-the client that have done check in thw waitlist will have his health information form avaiable to the healthcare professional to access and edit. the form for clients also inclues acces to search by email of the patient as a functionality that loads the last saved patient form.
+
+## This application is designed to simplify patient forms for healthcare facilities. It automatically detects existing patients in waiting rooms or identification kiosks and adds them to a waitlist. Healthcare professionals can then access and edit the patient's health information form. Patients do not use the app directly, but they can view their waitlist status and medical information when they are in a private consultation with a healthcare professional. Additionally, healthcare professionals can search for their last saved form by entering their patient's email address. These added functionalities make it easier for healthcare professionals to provide quality care and for patients to manage their health information.
 
 
 
