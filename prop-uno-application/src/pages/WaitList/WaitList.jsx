@@ -33,20 +33,41 @@ function WaitList(props) {
   const addPersonToWaitlist = (person) => {
     const addedTime = new Date().getTime();
     const timeWaiting = 0;
-    const updatedPerson = {
-      ...person,
-      addedTime: addedTime, // Assign the `addedTime` variable to the `addedTime` property of the `updatedPerson` object.
-      timeWaiting: timeWaiting, // Assign the `timeWaiting` variable to the `timeWaiting` property of the `updatedPerson` object.
-    };
-    
-    // Check if person already exists in waitlist
-    if (!waitlist.some((p) => p.id === person.id)) {
-      setWaitlist((prevWaitlist) => [...prevWaitlist, updatedPerson]);
-    }
+  
+    setWaitlist((prevWaitlist) => {
+      let personAdded = false;
+  
+      // Check if person is already in waitlist
+      const updatedWaitlist = prevWaitlist.map((p) => {
+        if (p.lastName === person.lastName) {
+          personAdded = true;
+          const updatedPerson = {
+            ...p,
+            addedTime: addedTime,
+            timeWaiting: timeWaiting,
+          };
+          return updatedPerson;
+        } else {
+          return p;
+        }
+      });
+  
+      if (!personAdded) {
+        // Person is not in waitlist, add them to the end
+        const updatedPerson = {
+          ...person,
+          addedTime: addedTime,
+          timeWaiting: timeWaiting,
+        };
+        updatedWaitlist.push(updatedPerson);
+      }
+  
+      return updatedWaitlist;
+    });
   };
   
 
-  const handleWebSocketMessage = (message) => {
+  const handleWebSocketMessage = (message, prevWaitlist) => {
     const { type, payload } = message;
     if (type === "PERSON_UPDATED") {
       const updatedPerson = payload;
@@ -57,6 +78,7 @@ function WaitList(props) {
             : person
         )
       );
+      localStorage.setItem("waitlist", JSON.stringify(prevWaitlist));
     }
   };
 
@@ -94,16 +116,15 @@ function WaitList(props) {
     }, 1000);
     return () => clearInterval(intervalId);
   }, []);
-  
 
   useEffect(() => {
     if (props.websocket) {
       props.websocket.addEventListener("message", (event) => {
         const message = JSON.parse(event.data);
-        handleWebSocketMessage(message);
+        handleWebSocketMessage(message, waitlist);
       });
     }
-  }, [props.websocket]);
+  }, [props.websocket, waitlist]);
 
 
   return (
@@ -122,11 +143,23 @@ function WaitList(props) {
               </tr>
             </thead>
             <tbody>
-              {waitlist.map((person, index) => (
+            {waitlist.slice().reverse().map((person, index) => (
                 <tr key={index}>
                   <td className="table__cell">{person.lastName}</td>
                   <td className="table__cell">{person.firstName}</td>
                   <td className="table__cell">{person.timeWaiting}</td>
+                  <td className="table__cell">
+                    {" "}
+                    <button
+                      className="waitlist__button"
+                      onClick={() => {
+                        localStorage.setItem("person", JSON.stringify(person));
+                        window.open("/patient-details", "_blank");
+                      }}
+                    >
+                      Patient Details
+                    </button>
+                  </td>
                   <td className="table__cell">
                     <button
                     className="waitlist__button"
@@ -156,18 +189,7 @@ function WaitList(props) {
                       Attended
                     </button>
                   </td>
-                  <td className="table__cell">
-                    {" "}
-                    <button
-                      className="waitlist__button"
-                      onClick={() => {
-                        localStorage.setItem("person", JSON.stringify(person));
-                        window.open("/patient-details", "_blank");
-                      }}
-                    >
-                      Patient Details
-                    </button>
-                  </td>
+             
                 </tr>
               ))}
             </tbody>
