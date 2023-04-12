@@ -10,6 +10,22 @@ the client that have done check in thw waitlist will have his health information
 
 ## API Reference
 
+API USE GENERAL PUBLIC KEY (FREE)
+GROUP TO CHECK ON PROJECT IS VISIBLE
+
+API SET
+
+api_key: "d45fd466-51e2-4701-8da8-04351c872236",
+          file_base64: base64Data,
+          recognize_targets: ["all@spacefrm"],
+          detection_min_score: 0.75,
+          
+API OFFICIAL DOCUMENTATION
+
+https://www.betafaceapi.com/wpa/index.php/documentation
+
+#####
+
 #### Detect a Face and compare with existing database
 
 ```http
