@@ -1,0 +1,13 @@
+[
+  {
+    "firstName": "Danill",
+    "lastName": "MKV",
+    "email": "teacher@gmail.com",
+    "sexAtBirth": "male",
+    "dateOfBirth": "1984-07-14T20:49:29.000Z",
+    "age": 38,
+    "medicalCondition": "follow-up",
+    "medicalSpecialty": "",
+    "details": "treadmill test for gym membrship"
+  }
+]
