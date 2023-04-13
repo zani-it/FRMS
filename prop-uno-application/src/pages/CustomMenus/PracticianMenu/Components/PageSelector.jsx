@@ -1,27 +1,27 @@
-import "./HomeMenu.scss";
+import "./PageSelector.scss";
 
-function HomeMenu() {
+function PageSelector() {
   return (
-    <div className="home-menu">
+    <div className="page-selector__menu">
       <div>
         {" "}
         <h1>FRMS<br/>(Fast Registry Management System)</h1>{" "}
       </div>
-      <div className="home-menu__wrapper">
+      <div className="page-selector__wrapper">
         <div>
           <button
-            className="home-menu__button"
+            className="page-selector__button"
             onClick={() => {
-              window.open("/practicianmenu", "_blank");
+              window.open("/patient-details", "_blank");
             }}
           >
-            Practician Menu
+            Patien Details
           </button>
         </div>
 
         <div>
           <button
-            className="home-menu__button"
+            className="page-selector__button"
             onClick={() => {
               window.open("/form", "_blank");
             }}
@@ -31,10 +31,10 @@ function HomeMenu() {
         </div>
       </div>
 
-      <div className="home-menu__wrapper">
+      <div className="page-selector__wrapper">
       <div>
         <button
-          className="home-menu__button"
+          className="page-selector__button"
           onClick={() => {
             window.open("/waitlist", "_blank");
           }}
@@ -45,7 +45,7 @@ function HomeMenu() {
 
       <div>
         <button
-          className="home-menu__button"
+          className="page-selector__button"
           onClick={() => {
             window.open("http://localhost:3002", "_blank");
           }}
@@ -58,4 +58,4 @@ function HomeMenu() {
   );
 }
 
-export default HomeMenu;
+export default PageSelector;

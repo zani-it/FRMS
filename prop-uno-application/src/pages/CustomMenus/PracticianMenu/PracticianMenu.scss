@@ -1,0 +1,36 @@
+// Import statements
+@import '../../../styles/global';
+@import '../../../styles/variables';
+
+// Block styles
+.practioner {
+  &__header {
+
+    min-height: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 100%;
+  }
+  
+  
+  &__content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  &__title-box{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+}
+

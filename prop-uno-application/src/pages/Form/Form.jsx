@@ -19,6 +19,7 @@ function Form() {
   const [imageFrozen, setImageFrozen] = useState(false);
   const [email, setEmail] = useState("");
   const videoRef = useRef(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const birthdayString = "1990-01-01";
   const birthday = new Date(birthdayString);
@@ -69,7 +70,6 @@ function Form() {
 
   const handleDateOfBirth = (date) => {
     if (dateValidate(date)) {
-
       const dateObj = new Date(date);
       setDateOfBirth(dateObj);
       setAge(calculateAge(dateObj));
@@ -78,21 +78,20 @@ function Form() {
       setAge("");
     }
   };
-  
+
   function dateValidate(strData) {
     // Tenta criar um objeto Date a partir da string
     var data = new Date(strData);
-  
+
     // Verifica se o objeto Date é válido
     if (isNaN(data.getTime())) {
       // Se o objeto Date não for válido, a string não é uma data válida
       return false;
     }
-  
+
     // Se o objeto Date for válido, a string é uma data válida
     return true;
   }
-  
 
   const handleMedicalConditionChange = (event) => {
     setMedicalCondition(event.target.value);
@@ -115,7 +114,24 @@ function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
+    // check if all fields are filled
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !sexAtBirth ||
+      !dateOfBirth ||
+      !age ||
+      !medicalCondition ||
+      !medicalSpecialty ||
+      !details ||
+      !imageData
+    ) {
+      alert("Please fill all fields.");
+      return;
+    }
+  
     // create post data
     const postData = {
       firstName: firstName,
@@ -129,7 +145,7 @@ function Form() {
       details: details,
       image: imageData,
     };
-
+  
     axios
       .post("http://localhost:3001/register", postData)
       .then((response) => {
@@ -141,6 +157,7 @@ function Form() {
         console.error(error);
       });
   };
+  
 
   const handleFind = async (event) => {
     event.preventDefault();
@@ -167,7 +184,7 @@ function Form() {
         // client found, update state
         setFirstName(result.firstName || "");
         setLastName(result.lastName || "");
-        setDateOfBirth(new Date(formattedDateOfBirth) || "")
+        setDateOfBirth(new Date(formattedDateOfBirth) || "");
         setSexAtBirth(result.sexAtBirth || "");
         setAge(result.age || "");
         setMedicalCondition(result.medicalCondition || "");
@@ -201,7 +218,7 @@ function Form() {
     setDetails("");
     setImageData(null);
     setImageFrozen(false);
-    setImageExistingData(null)
+    setImageExistingData(null);
   };
 
   return (
@@ -209,73 +226,72 @@ function Form() {
       <h1 className="form__header"> Patient Form </h1>
       <label className="centralized">
         <h3>Email:</h3>
-        <input  className=""type="email" value={email} onChange={handleEmailChange} />
-      </label>
-      <br />
-      <label label className="centralized">
-       <h3> Birthday:</h3>
-        <DatePicker
-          selected={dateOfBirth}
-          onChange={(date) =>
-            handleDateOfBirth(date)
-          }
-          maxDate={new Date()}
-          showYearDropdown
-       
-          showMonthDropdown
-          showDayDropdown
-   
-          dateFormat="yyyy-MM-dd"
+        <input
+          className=""
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
         />
       </label>
       <br />
-      <button className="button-capture" onClick={handleFind}>Find Existing Patient</button>
-      <br />
-      <label  className="centralized">
-      <h3 >First Name:</h3>
+
+      <label className="centralized">
+        <h3>First Name:</h3>
         <input type="text" value={firstName} onChange={handleFirstNameChange} />
       </label>
       <br />
-      <label  className="centralized">
-      <h3>Last Name:</h3>
+      <label className="centralized">
+        <h3>Last Name:</h3>
         <input type="text" value={lastName} onChange={handleLastNameChange} />
       </label>
       <br />
 
-      <label className="centralized">
-       <h3> Sex at Birth:</h3>
-        <div className="input__sex">
-          <label>
-            <input
-              type="radio"
-              name="sexAtBirth"
-              value="male"
-              checked={sexAtBirth === "male"}
-              onChange={handleSexAtBirthChange}
-            />
-            <span>Male</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sexAtBirth"
-              value="female"
-              checked={sexAtBirth === "female"}
-              onChange={handleSexAtBirthChange}
-            />
-            <span>Female</span>
-          </label>
+      <label className="form__horizontal">
+        <div className="centralized">
+          <h3> Sex at Birth:</h3>
+          <div className="input__sex">
+            <label>
+              <input
+                type="radio"
+                name="sexAtBirth"
+                value="male"
+                checked={sexAtBirth === "male"}
+                onChange={handleSexAtBirthChange}
+              />
+              <span>Male</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="sexAtBirth"
+                value="female"
+                checked={sexAtBirth === "female"}
+                onChange={handleSexAtBirthChange}
+              />
+              <span>Female</span>
+            </label>
+          </div>
         </div>
+        <label label className="">
+          <h3> Birthday:</h3>
+          <DatePicker
+            selected={dateOfBirth}
+            onChange={(date) => handleDateOfBirth(date)}
+            maxDate={new Date()}
+            showYearDropdown
+            showMonthDropdown
+            showDayDropdown
+            dateFormat="yyyy-MM-dd"
+          />
+        </label>
+        <label className="centralized__age">
+          <h3> Age:</h3>
+          <input type="number" value={age} disabled />
+        </label>
       </label>
       <br />
-
       <label className="centralized">
-       <h3> Age:</h3>
-        <input type="number" value={age} disabled />
-      </label>
-      <br />
-      <label className="centralized">
-       <h3> Medical Condition:</h3>
+        <h3> Medical Condition:</h3>
         <select
           value={medicalCondition}
           onChange={handleMedicalConditionChange}
@@ -290,8 +306,8 @@ function Form() {
         </select>
       </label>
       <br />
-      < label className="centralized">
-      <h3>Medical Specialty:</h3>
+      <label className="centralized">
+        <h3>Medical Specialty:</h3>
         <select
           value={medicalSpecialty}
           onChange={handleMedicalSpecialtyChange}
@@ -306,39 +322,61 @@ function Form() {
       </label>
       <br />
       <label className="form__details centralized">
-      <h3>Details:</h3>
-        <textarea className="form__details-textarea"value={details} onChange={handleDetailsChange} />
+        <h3>Details:</h3>
+        <textarea
+          className="form__details-textarea"
+          value={details}
+          onChange={handleDetailsChange}
+        />
       </label>
       <br />
       <div className="form__webcam">
-        <Webcam audio={false} ref={videoRef} width="320" height="240" />
-        <button className="button-capture" onClick={handleImageCapture}>Capture Image</button>
+        <Webcam audio={false} ref={videoRef}   height="200"
+              margin="0.5rem 0 0.5rem 0.5rem" />
+<div style={{ margin: "0.5rem 1.5rem 0rem 0rem" }} className="form__image">
+  {imageData ? (
+    <img
+      className="form__image-item"
+      src={imageData}
+      alt="Captured Image"
+      height="200"
+    />
+  ) : imageExistingData ? (
+    <img
+      className="form__image-item"
+      src={`data:image/jpeg;base64,${imageExistingData}`}
+      alt="Image on file"
+      height="200"
+    />
+  ) : (
+    <canvas
+      className="form__image-item"
+      width={265}
+      height={200}
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.25)" }}
+    />
+  )}
+</div>
+
+
+        <br />
       </div>
-      <br />
-      <div className="form__image">
-        {imageData && (
-          <img  className="form__image-item" src={imageData} alt="Captured Image" width="320" height="240" margin="0.5 0"/>
-        )}
-      </div>
-      <div className="form__image">
-        {imageExistingData && (
-          <img className="form__image-item"
-            src={`data:image/jpeg;base64,${imageExistingData}`}
-            alt="image on file"
-            width="320"
-            height="240"
-            margin="0.5rem 0"
-          />
-        )}
-      </div>
-      <br />
       <div className="form__button-wrapper">
-      <button  className="form__button" type="submit" onClick={handleSubmit}>
-        Submit
-      </button>
-      <button  className="form__button" type="button" onClick={handleNewForm}>
-        New Form
-      </button>
+        <button className="form__button" type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
+        <button className="form__button" type="button" onClick={handleNewForm}>
+          New Form
+        </button>
+      </div>
+      <div className="button-bottom">
+        <button className="button-capture" onClick={handleImageCapture}>
+          Capture Image
+        </button>
+
+        <button className="button-capture" onClick={handleFind}>
+          Find Existing Patient
+        </button>
       </div>
     </form>
   );

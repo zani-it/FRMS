@@ -1,0 +1,37 @@
+
+
+.practioner-table {
+    &__header {
+      background-color: grey;
+      margin: 2rem 0;
+      border-radius: .3125rem;
+    }
+    
+    &__cell {
+      padding: 0.5rem 1rem;
+    }
+  }
+  
+  // Element styles
+  .practioner-waitlist {
+    &__button {
+      padding: 0.5rem 1rem;
+    }
+    &__table{
+      margin: 1rem;
+    }
+  }
+  .practioner-button{
+    &__box {
+      display: flex;
+      justify-content: end;
+      padding: 1rem;
+      padding-right: 2.15rem;
+      padding-top: 0;
+    }
+  }
+  .practioner-table__box{
+   margin-bottom: 1rem;
+  }
+
+  

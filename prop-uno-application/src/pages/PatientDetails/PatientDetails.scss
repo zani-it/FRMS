@@ -12,11 +12,6 @@
     justify-content: center;
     margin-top: 8rem;
   }
-  &__details,
-  &__webcam {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 .form__header {
@@ -39,11 +34,6 @@ input,
   margin-bottom: 10rem;
 }
 
-.centralized {
-  justify-content: center;
-  justify-content: space-between;
-  margin: 0.5rem 0rem;
-}
 
 .details__button {
   width: 48.5%;
@@ -68,17 +58,3 @@ input,
   }
 }
 
-.input {
-  &__sex {
-    display: flex;
-    justify-content: space-between;
-    width: 25%;
-    & > label {
-      align-items: center;
-      display: flex;
-      & > span {
-        margin: 0 0.5rem;
-      }
-    }
-  }
-}

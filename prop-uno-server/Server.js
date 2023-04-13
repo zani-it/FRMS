@@ -9,6 +9,7 @@ const mysql = require("mysql2/promise");
 const { WebSocketServer } = require("ws");
 require ('dotenv').config();
 
+const apiKey = process.env.API_KEY;
 
 
 const port = process.env.PORT || 3001;
@@ -55,7 +56,7 @@ wss.on("connection", function connection(ws) {
       const response1 = await axios.post(
         "https://www.betafaceapi.com/api/v2/media",
         {
-          api_key: "d45fd466-51e2-4701-8da8-04351c872236",
+          api_key: apiKey,
           file_base64: base64Data,
           recognize_targets: ["all@spacefrm"],
           detection_min_score: 0.75,
@@ -124,7 +125,7 @@ wss.on("connection", function connection(ws) {
       const response2 = await axios.post(
         "https://www.betafaceapi.com/api/v2/media",
         {
-          api_key: "d45fd466-51e2-4701-8da8-04351c872236",
+          api_key: apiKey,
           file_base64: base64Data,
           set_person_id: setPersonId,
           original_filename: `${setPersonId}.png`,

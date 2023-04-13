@@ -7,6 +7,10 @@ import Form from "./pages/Form/Form";
 import Monitor from "./pages/Monitor/Monitor";
 import HomeMenu from "./pages/HomeMenu/HomeMenu";
 import Header from "./pages/Header/Header";
+import PracticianMenu from "./pages/CustomMenus/PracticianMenu/PracticianMenu";
+import ReturnButton from "./pages/Components/ReturnButton";
+
+
 
 const WS_URL = "ws://localhost:3333";
 
@@ -37,18 +41,20 @@ function App() {
 
   function getTitleForRoute(route, location) {
     switch (route) {
-      case '/':
-        return 'Home Menu';
-      case '/patient-details':
-        return 'Patient Details Form';
-      case '/waitlist':
-        return 'Wait List';
-      case '/form':
-        return 'New Patient Form';
-      case '/monitor':
-        return 'Face Detection Monitor';
+      case "/":
+        return "Home Menu";
+      case "/patient-details":
+        return "Patient Details Form";
+      case "/waitlist":
+        return "Wait List";
+      case "/form":
+        return "New Patient Form";
+      case "/monitor":
+        return "Face Detection Monitor";
+      case "practicianmenu":
+        return "Practician Menu";
       default:
-        return '';
+        return "";
     }
   }
 
@@ -62,6 +68,7 @@ function App() {
     <Router>
       <div className="App__content">
         <Header />
+        <ReturnButton />
         <header className="App__header">
           <Routes>
             <Route path="*" element={<HomeMenu />} />
@@ -69,12 +76,12 @@ function App() {
             <Route path="/waitlist" element={<WaitList person={person} />} />
             <Route path="/form" element={<Form />} />
             <Route path="/monitor" element={<Monitor />} />
+            <Route path="/practicianmenu" element={<PracticianMenu />} />
           </Routes>
         </header>
       </div>
     </Router>
   );
 }
-
 
 export default App;

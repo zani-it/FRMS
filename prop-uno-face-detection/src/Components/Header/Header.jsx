@@ -1,5 +1,5 @@
 import "./Header.scss";
-import logo from '../../media/FRMSLOGO.png';
+import logo from '../../media/FRMSLOGO.png'
 
 function Header () {
     return (

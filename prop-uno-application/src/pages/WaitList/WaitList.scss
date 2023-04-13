@@ -2,13 +2,13 @@
 
 .table {
     &__header {
-      background-color: grey;
-      margin-bottom: 2rem;
-      border-radius: .3125rem;
+        background-color: grey;
+        margin: 2rem 0;
+        border-radius: .3125rem;
     }
     
     &__cell {
-      min-width: 15rem;
+        padding: 0.5rem 1rem;
     }
   }
   
@@ -17,5 +17,11 @@
     &__button {
       padding: 0.5rem 1rem;
     }
+    &__table{
+        margin: 1rem;
+      }
   }
+  .waitlist-table__box{
+    margin-bottom: 1rem;
+   }
   

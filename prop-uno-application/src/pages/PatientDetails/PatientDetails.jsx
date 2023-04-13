@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./PatientDetails.scss";
 
 function PatientDetails() {
+
   const [person, setPerson] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -16,6 +17,7 @@ function PatientDetails() {
   const [details, setDetails] = useState("");
   const [email, setEmail] = useState("");
   const [imageData, setImageData] = useState(null);
+  const [imageExistingData, setImageExistingData] = useState(null);
   const [medicalSpecialtyOptions, setMedicalSpecialtyOptions] = useState([
     "Cardiology",
     "Gastroenterology",
@@ -30,6 +32,8 @@ function PatientDetails() {
     const personData = localStorage.getItem("person");
     try {
       if (personData) {
+        
+
         const data = JSON.parse(personData);
         setPerson(data);
         setFirstName(data.firstName);
@@ -41,13 +45,15 @@ function PatientDetails() {
         setMedicalSpecialty(data.medicalSpecialty);
         setDetails(data.details);
         setEmail(data.email);
+      
+        
       }
     } catch (error) {
       console.error(error);
       // handle error
     }
   }, []);
-  
+  console.log(imageExistingData);
 
   function calculateAge(birthday) {
     const ageDiffMs = Date.now() - birthday.getTime();
@@ -132,7 +138,6 @@ function PatientDetails() {
       medicalCondition: medicalCondition,
       medicalSpecialty: medicalSpecialty,
       details: details,
-  
     };
 
     axios
@@ -160,8 +165,10 @@ function PatientDetails() {
     setImageData(null);
     setImageFrozen(false);
     setImageExistingData(null);
+    setImageExistingData(null);
   };
 
+  
   return (
     <form className="form__body">
       <h1 className="form__header"> Patient Details</h1>
@@ -175,21 +182,6 @@ function PatientDetails() {
         />
       </label>
       <br />
-      <label className="centralized">
-        <h3> Birthday:</h3>
-        <DatePicker
-        className="birthday"
-          selected={dateOfBirth}
-          onChange={(date) => handleDateOfBirth(date)}
-          maxDate={new Date()}
-          showYearDropdown
-          scrollabeYearDropdown
-          showMonthDropdown
-          showDayDropdown
-          scrollableMonthYearDropdown
-          dateFormat="yyyy-MM-dd"
-        />
-      </label>
 
       <label className="centralized">
         <h3>First Name:</h3>
@@ -202,36 +194,48 @@ function PatientDetails() {
       </label>
       <br />
 
-      <label className="centralized">
-        <h3> Sex at Birth:</h3>
-        <div className="input__sex">
-          <label>
-            <input
-              type="radio"
-              name="sexAtBirth"
-              value="male"
-              checked={sexAtBirth === "male"}
-              onChange={handleSexAtBirthChange}
-            />
-            <span>Male</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sexAtBirth"
-              value="female"
-              checked={sexAtBirth === "female"}
-              onChange={handleSexAtBirthChange}
-            />
-            <span>Female</span>
-          </label>
+      <label className="form__horizontal">
+        <div className="centralized">
+          <h3> Sex at Birth:</h3>
+          <div className="input__sex">
+            <label>
+              <input
+                type="radio"
+                name="sexAtBirth"
+                value="male"
+                checked={sexAtBirth === "male"}
+                onChange={handleSexAtBirthChange}
+              />
+              <span>Male</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="sexAtBirth"
+                value="female"
+                checked={sexAtBirth === "female"}
+                onChange={handleSexAtBirthChange}
+              />
+              <span>Female</span>
+            </label>
+          </div>
         </div>
-      </label>
-      <br />
-
-      <label className="centralized">
-        <h3> Age:</h3>
-        <input type="number" value={age} disabled />
+        <label label className="">
+          <h3> Birthday:</h3>
+          <DatePicker
+            selected={dateOfBirth}
+            onChange={(date) => handleDateOfBirth(date)}
+            maxDate={new Date()}
+            showYearDropdown
+            showMonthDropdown
+            showDayDropdown
+            dateFormat="yyyy-MM-dd"
+          />
+        </label>
+        <label className="centralized__age">
+          <h3> Age:</h3>
+          <input type="number" value={age} disabled />
+        </label>
       </label>
       <br />
       <label className="centralized">
@@ -266,17 +270,29 @@ function PatientDetails() {
       </label>
       <br />
       <label className="form__details centralized">
-      <h3>Details:</h3>
-        <textarea value={details} onChange={handleDetailsChange} />
+        <h3>Details:</h3>
+        <textarea
+          className="form__details-textarea"
+          value={details}
+          onChange={handleDetailsChange}
+        />
       </label>
       <br />
       <div className="details__button-wrapper">
-      <button className="details__button" type="submit" onClick={handleSubmit}>
-        Submit
-      </button>
-      <button className="details__button"type="button" onClick={handleNewForm}>
-        New Form
-      </button>
+        <button
+          className="details__button"
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+        <button
+          className="details__button"
+          type="button"
+          onClick={handleNewForm}
+        >
+          New Form
+        </button>
       </div>
     </form>
   );

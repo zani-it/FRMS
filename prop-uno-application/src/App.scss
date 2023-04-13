@@ -5,11 +5,12 @@
 // Block styles
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 700;
 }
 
 .App {
   &__header {
-    background-color: #282c34;
+    background-color: #192342;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

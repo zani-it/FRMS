@@ -1,7 +1,12 @@
 .centralized {
     width: 100%;
 display: flex;
-justify-content: center;
+flex-direction: column;
+justify-content: flex-start;
+text-align: start;
+&__age{
+    margin-left: 2.5rem;
+}
 
 }
 
