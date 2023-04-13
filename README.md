@@ -2,12 +2,11 @@
 # FRMS (Fast Registry Management System)
 
 
-##FRMS is a web application that simplifies patient forms for healthcare facilities. It automatically detects existing patients in waiting rooms or identification kiosks and adds them to a waitlist. Healthcare professionals can then access and edit the patient's health information form. Patients do not use the app directly, but they can view their waitlist status and medical information when they are in a private consultation with a healthcare professional. Additionally, healthcare professionals can search for their last saved form by entering their patient's email address. These added functionalities make it easier for healthcare professionals to provide quality care and for patients to manage their health information.
+### FRMS is a web application that simplifies patient intake forms for healthcare facilities. 
+It automatically detects existing patients in waiting rooms or identification kiosks and adds them to a waitlist. Healthcare professionals can then access and edit the patient's intake form. 
+Patients do not use the app directly, but they can check their waitlist status and medical information when they are in a private consultation with a healthcare professional. Additionally, healthcare professionals can search for their last saved form by entering their patient's email address. These added functionalities make it easier for healthcare professionals to provide quality care and for patients to manage their health information.
 
-This application is designed to run on a local closed network. Therefore, no additional security measures have been implemented.
-
-
-
+This application is designed to run on a local closed network.
 
 
 ## API Reference
@@ -108,29 +107,31 @@ Return the patient information from the face recognized and autofill the form.
 ## Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/zani-it/FRMS.git
 ```
 ## Navigate to the project directory
 
 ###Go to the project directory
 
 ```bash
-  cd my-project
+  cd FRMS
 ```
 
 # Installation
 
-To install my-project with npm, run the following command for all the following:
+Install dependencies, including:
 
 - prop-uno-server
 - prop-uno-database-watcher
 - prop-uno-application
 
+to do that, run the following command:
+
 ```bash
   npm install
 ```
 
-For prop-uno-face-detection installation, force is required for the old and deprecated libraries:
+If you get a deprecation notice for prop-uno-face-detection installation, force is required:
 
 ```bash
   npm install --force 
@@ -138,7 +139,7 @@ For prop-uno-face-detection installation, force is required for the old and depr
 
 ## Starting the Application
 
-The order in which the applications are started is important to define port numbers, as they are coded static. Follow the order below:
+The order in which the applications are started is important to define port numbers, as they are coded staticly. Follow the order below:
 
 prop-uno-application:
 ```bash
@@ -148,12 +149,10 @@ prop-uno-database-watcher:
 ```bash
   npm run start
 ```
-
 prop-uno-server:
 ```bash
   npm run start
 ```
-
 prop-uno-face-detection:
 ```bash
   npm run start
