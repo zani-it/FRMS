@@ -39,12 +39,11 @@
     align-items: center;
     margin: 0 0 2rem 0;
     margin-left: 2.15rem;
-    
   }
   &__image {
     width: 100%;
     align-items: center;
- 
+
     margin-left: 2.5rem;
     &-item {
       border-radius: 15px;
@@ -122,4 +121,16 @@ select {
 
 .button-bottom {
   width: 100%;
+}
+
+.centralized {
+  margin-top: 0.5rem;
+}
+
+.form__horizontal > label:nth-child(2) {
+  margin-top: 0.5rem;
+}
+
+.centralized__age {
+  margin-top: 0.5rem;
 }

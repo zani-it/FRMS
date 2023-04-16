@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./PractionerWaitlist.scss";
+import React from "react";
 
 function formatTimeWaiting(milliseconds) {
   if (milliseconds === 0) {
@@ -76,9 +77,12 @@ function PractionerWaitList(props) {
             : person
         )
       );
-      localStorage.setItem("practionerWaitlist", JSON.stringify(prevWaitlist));
+      setLastAttended(updatedPerson);
+      localStorage.setItem("waitlist", JSON.stringify(prevWaitlist));
+      localStorage.setItem("practionerWaitlist", JSON.stringify(updatedPerson));
     }
   };
+  
 
   useEffect(() => {
     const storedWaitlist = localStorage.getItem("practionerWaitlist");
@@ -105,7 +109,7 @@ function PractionerWaitList(props) {
     const intervalId = setInterval(() => {
       window.location.reload();
     }, 30000);
-  })
+  });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -137,84 +141,103 @@ function PractionerWaitList(props) {
     <div>
       <div>
         <div>
-          
           <div className="practioner-waitlist__table">
             {waitlist !== null && (
               <table>
                 <div className="practioner-table__box">
-                <thead>
-                  <tr className="practioner-table__header">
-                    <th className="practioner-table__cell">Last Name</th>
-                    <th className="practioner-table__cell">First Name</th>
-                    <th className="practioner-table__cell">Time Waiting</th>
-                    <th className="practioner-table__cell">Patient Details</th>
-                    <th className="practioner-table__cell">Attended</th>
-                   
-                  </tr>
-                </thead>
-            
-                <tbody>
-                  {waitlist
-                    .slice()
-                    .reverse()
-                    .map((person, index) => (
-                      <tr key={index} className={index % 2 === 0 ? "even-row" : "odd-row"} title={person.details}>
-                        <td className="practioner-table__cell">
-                          {person.lastName}
-                        </td>
-                        <td className="practioner-table__cell" >
-                          {person.firstName}
-                        </td>
-                        <td className="practioner-table__cell">
-                          {person.timeWaiting}
-                        </td>
-                        <td className="practioner-table__cell">
-                          {" "}
-                          <button
-                            className="practioner-waitlist__button"
-                            onClick={() => {
-                              localStorage.setItem(
-                                "person",
-                                JSON.stringify(person)
-                              );
-                              window.open("/patient-details", "_blank");
-                            }}
+                  <thead>
+                    <tr className="practioner-table__header">
+                      <th className="practioner-table__cell">Last Name</th>
+                      <th className="practioner-table__cell">First Name</th>
+                      <th className="practioner-table__cell">Time Waiting</th>
+                      <th className="table__cell">Medical Specialty</th>
+                      <th className="practioner-table__cell">
+                        Patient Details
+                      </th>
+                      <th className="practioner-table__cell">Attended</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {waitlist
+                      .slice()
+                      .reverse()
+                      .map((person, index) => (
+                        <React.Fragment key={index}>
+                          <tr
+                            className={index % 2 === 0 ? "even-row" : "odd-row"}
+                            title={person.details}
                           >
-                            Patient Details
-                          </button>
-                        </td>
-                        <td className="practioner-table__cell">
-                          <button
-                            className="practioner-waitlist__button"
-                            onClick={() => {
-                              const now = new Date();
-                              const timeWaiting = formatTimeWaiting(
-                                now - person.addedTime
-                              );
-                              setWaitlist((prevWaitlist) =>
-                                prevWaitlist.filter((p) => p !== person)
-                              );
-                              const attendedTime = now.getTime();
-                              setLastAttended({
-                                ...person,
-                                attendedTime,
-                                timeWaiting: formatTimeWaiting(
-                                  attendedTime - person.addedTime
-                                ),
-                                timeWaited: formatTimeWaiting(
-                                  attendedTime -
-                                    person.addedTime -
-                                    (person.pausedTime || 0)
-                                ),
-                              });
-                            }}
-                          >
-                            Attended
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
+                            <td className="practioner-table__cell">
+                              {person.lastName}
+                            </td>
+                            <td className="practioner-table__cell">
+                              {person.firstName}
+                            </td>
+                            <td className="practioner-table__cell">
+                              {person.timeWaiting}
+                            </td>
+                            <td className="table__cell">
+                        
+                        
+                        {person.medicalSpecialty}
+                       
+                     </td>
+                            <td className="practioner-table__cell">
+                              <button
+                                className="practioner-waitlist__button"
+                                onClick={() => {
+                                  localStorage.setItem(
+                                    "person",
+                                    JSON.stringify(person)
+                                  );
+                                  window.open("/patient-details", "_blank");
+                                }}
+                              >
+                                Patient Form
+                              </button>
+                            </td>
+                            <td className="practioner-table__cell">
+                              <button
+                                className="practioner-waitlist__button"
+                                onClick={() => {
+                                  const now = new Date();
+                                  const timeWaiting = formatTimeWaiting(
+                                    now - person.addedTime
+                                  );
+                                  setWaitlist((prevWaitlist) =>
+                                    prevWaitlist.filter((p) => p !== person)
+                                  );
+                                  const attendedTime = now.getTime();
+                                  setLastAttended({
+                                    ...person,
+                                    attendedTime,
+                                    timeWaiting: formatTimeWaiting(
+                                      attendedTime - person.addedTime
+                                    ),
+                                    timeWaited: formatTimeWaiting(
+                                      attendedTime -
+                                        person.addedTime -
+                                        (person.pausedTime || 0)
+                                    ),
+                                  });
+                                }}
+                              >
+                                Attended
+                              </button>
+                            </td>
+                          </tr>
+                          <tr
+  className={`patient-details-row ${index % 2 === 0 ? "even-row" : "odd-row"}`}
+>
+  <td className="practioner-table__cell-details" colSpan={6}>
+    <div>Details: {person.details}</div>
+  </td>
+</tr>
+
+                        </React.Fragment>
+                      ))}
+                  </tbody>
                 </div>
               </table>
             )}

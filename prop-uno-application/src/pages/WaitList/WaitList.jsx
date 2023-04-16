@@ -25,18 +25,24 @@ function formatTimeWaiting(milliseconds) {
   }
 }
 
-
 function WaitList(props) {
   const [waitlist, setWaitlist] = useState(null);
   const [lastAttended, setLastAttended] = useState(null);
-
+  const roomMap = {
+    "Cardiology": "01",
+    "Gastroenterology": "02",
+    "Neurology": "03",
+    "Orthopedics": "04",
+    "Pulmonology": "05",
+     };
+  
   const addPersonToWaitlist = (person) => {
     const addedTime = new Date().getTime();
     const timeWaiting = 0;
-  
+
     setWaitlist((prevWaitlist) => {
       let personAdded = false;
-  
+
       // Check if person is already in waitlist
       const updatedWaitlist = prevWaitlist.map((p) => {
         if (p.lastName === person.lastName) {
@@ -51,7 +57,7 @@ function WaitList(props) {
           return p;
         }
       });
-  
+
       if (!personAdded) {
         // Person is not in waitlist, add them to the end
         const updatedPerson = {
@@ -61,11 +67,10 @@ function WaitList(props) {
         };
         updatedWaitlist.push(updatedPerson);
       }
-  
+
       return updatedWaitlist;
     });
   };
-  
 
   const handleWebSocketMessage = (message, prevWaitlist) => {
     const { type, payload } = message;
@@ -107,7 +112,7 @@ function WaitList(props) {
     const intervalId = setInterval(() => {
       window.location.reload();
     }, 30000);
-  })
+  });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -116,7 +121,10 @@ function WaitList(props) {
         prevWaitlist.map((person) => {
           const addedTime = person.addedTime;
           const timeWaiting = now.getTime() - addedTime;
-          return { ...person, timeWaiting: formatTimeWaiting(now - person.addedTime) };
+          return {
+            ...person,
+            timeWaiting: formatTimeWaiting(now - person.addedTime),
+          };
         })
       );
     }, 1000);
@@ -132,92 +140,78 @@ function WaitList(props) {
     }
   }, [props.websocket, waitlist]);
 
-
   return (
     <div>
       <div>
-      <div className="waitlist__table">
-        <h1>Patient Waitlist</h1>
-        {waitlist !== null && (
-              <table>
+        <div className="waitlist__table">
+          <h1>Patient Waitlist</h1>
+          {waitlist !== null && (
+            <table>
               <div className="waitlist-table__box">
-              <thead>
-                <tr className="table__header">
-                  <th className="table__cell">Last Name</th>
-                  <th className="table__cell">First Name</th>
-                  <th className="table__cell">Time Waiting</th>
-                  <th className="table__cell">Patient Details</th>
-                  <th className="table__cell">Attended</th>
-                  
-                </tr>
-              </thead>
-          
-              <tbody>
-                {waitlist
-                  .slice()
-                  .reverse()
-                  .map((person, index) => (
-                    <tr key={index} className={index % 2 === 0 ? "even-row" : "odd-row"} title={person.details}>
-                      <td className="table__cell">
-                        {person.lastName}
-                      </td>
-                      <td className="table__cell" >
-                        {person.firstName}
-                      </td>
-                      <td className="table__cell">
-                        {person.timeWaiting}
-                      </td>
-                      <td className="table__cell">
-                        {" "}
-                        <button
-                          className="waitlist__button"
-                          onClick={() => {
-                            localStorage.setItem(
-                              "person",
-                              JSON.stringify(person)
-                            );
-                            window.open("/patient-details", "_blank");
-                          }}
-                        >
-                          Patient Details
-                        </button>
-                      </td>
-                      <td className="table__cell">
-                        <button
-                          className="waitlist__button"
-                          onClick={() => {
-                            const now = new Date();
-                            const timeWaiting = formatTimeWaiting(
-                              now - person.addedTime
-                            );
-                            setWaitlist((prevWaitlist) =>
-                              prevWaitlist.filter((p) => p !== person)
-                            );
-                            const attendedTime = now.getTime();
-                            setLastAttended({
-                              ...person,
-                              attendedTime,
-                              timeWaiting: formatTimeWaiting(
-                                attendedTime - person.addedTime
-                              ),
-                              timeWaited: formatTimeWaiting(
-                                attendedTime -
-                                  person.addedTime -
-                                  (person.pausedTime || 0)
-                              ),
-                            });
-                          }}
-                        >
-                          Attended
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
+                <thead>
+                  <tr className="table__header">
+                    <th className="table__cell">Last Name</th>
+                    <th className="table__cell">First Name</th>
+                    <th className="table__cell">Time Waiting</th>
+                    <th className="table__cell">Medical Specialty</th>
+                    <th className="table__cell">Room</th>
+                    <th className="table__cell">Attended</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {waitlist
+                    .slice()
+                    .reverse()
+                    .map((person, index) => (
+                      <tr
+                        key={index}
+                        className={index % 2 === 0 ? "even-row" : "odd-row"}
+                        title={person.details}
+                      >
+                        <td className="table__cell">{person.lastName}</td>
+                        <td className="table__cell">{person.firstName}</td>
+                        <td className="table__cell">{person.timeWaiting}</td>
+
+                        <td className="table__cell">
+                          {person.medicalSpecialty}
+                        </td>
+                        <td className="table__cell">{roomMap[person.medicalSpecialty]}</td>
+                        <td className="table__cell">
+                          <button
+                            className="waitlist__button"
+                            onClick={() => {
+                              const now = new Date();
+                              const timeWaiting = formatTimeWaiting(
+                                now - person.addedTime
+                              );
+                              setWaitlist((prevWaitlist) =>
+                                prevWaitlist.filter((p) => p !== person)
+                              );
+                              const attendedTime = now.getTime();
+                              setLastAttended({
+                                ...person,
+                                attendedTime,
+                                timeWaiting: formatTimeWaiting(
+                                  attendedTime - person.addedTime
+                                ),
+                                timeWaited: formatTimeWaiting(
+                                  attendedTime -
+                                    person.addedTime -
+                                    (person.pausedTime || 0)
+                                ),
+                              });
+                            }}
+                          >
+                            Attended
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
               </div>
             </table>
-         
-        )}
+          )}
         </div>
       </div>
       {lastAttended && (
@@ -230,7 +224,6 @@ function WaitList(props) {
       )}
     </div>
   );
-  
 }
 
 export default WaitList;

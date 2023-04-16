@@ -114,6 +114,7 @@ wss.on("connection", function connection(ws) {
         age,
         medicalCondition,
         medicalSpecialty,
+        medicalExam,
         details,
         image,
       } = req.body;
@@ -143,6 +144,7 @@ wss.on("connection", function connection(ws) {
         age: age,
         medicalCondition: medicalCondition,
         medicalSpecialty: medicalSpecialty,
+        medicalExam: medicalExam,
         details: details,
         image: base64Data,
 
@@ -195,6 +197,7 @@ wss.on("connection", function connection(ws) {
         age,
         medicalCondition,
         medicalSpecialty,
+        medicalExam,
         details,
       } = req.body;
   
@@ -208,6 +211,7 @@ wss.on("connection", function connection(ws) {
         age: age,
         medicalCondition: medicalCondition,
         medicalSpecialty: medicalSpecialty,
+        medicalExam: medicalExam,
         details: details,
       };
   
@@ -238,6 +242,7 @@ wss.on("connection", function connection(ws) {
         fileDataToUpdate.age = age;
         fileDataToUpdate.medicalCondition = medicalCondition;
         fileDataToUpdate.medicalSpecialty = medicalSpecialty;
+        fileDataToUpdate.medicalExam = medicalExam;
         fileDataToUpdate.details = details;
   
         fs.writeFileSync(filePathToUpdate, JSON.stringify(fileDataToUpdate, null, 2));

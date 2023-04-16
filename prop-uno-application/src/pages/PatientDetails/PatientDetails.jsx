@@ -5,7 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./PatientDetails.scss";
 
 function PatientDetails() {
-
   const [person, setPerson] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -14,6 +13,7 @@ function PatientDetails() {
   const [age, setAge] = useState("");
   const [medicalCondition, setMedicalCondition] = useState("");
   const [medicalSpecialty, setMedicalSpecialty] = useState("");
+  const [medicalExam, setMedicalExam] = useState("");
   const [details, setDetails] = useState("");
   const [email, setEmail] = useState("");
   const [imageData, setImageData] = useState(null);
@@ -26,14 +26,23 @@ function PatientDetails() {
     "Pulmonology",
   ]);
 
-
+  const [medicalExamOptions, setMedicalExamOptions] = useState([
+    "Blood test",
+    "X-ray",
+    "MRI",
+    "CT scan",
+    "Ultrasound",
+    "Colonoscopy",
+    "Endoscopy",
+    "Echocardiogram",
+    "Electrocardiogram (ECG/EKG)",
+    "Spirometry",
+  ]);
 
   useEffect(() => {
     const personData = localStorage.getItem("person");
     try {
       if (personData) {
-        
-
         const data = JSON.parse(personData);
         setPerson(data);
         setFirstName(data.firstName);
@@ -43,10 +52,10 @@ function PatientDetails() {
         setAge(calculateAge(new Date(data.dateOfBirth)));
         setMedicalCondition(data.medicalCondition);
         setMedicalSpecialty(data.medicalSpecialty);
+        setMedicalExam(data.medicalExam);
+
         setDetails(data.details);
         setEmail(data.email);
-      
-        
       }
     } catch (error) {
       console.error(error);
@@ -120,6 +129,10 @@ function PatientDetails() {
     setMedicalSpecialty(event.target.value);
   };
 
+  const handleMedicalExamChange = (event) => {
+    setMedicalExam(event.target.value);
+  };
+
   const handleDetailsChange = (event) => {
     setDetails(event.target.value);
   };
@@ -137,6 +150,7 @@ function PatientDetails() {
       age: age,
       medicalCondition: medicalCondition,
       medicalSpecialty: medicalSpecialty,
+      medicalExam: medicalExam,
       details: details,
     };
 
@@ -161,6 +175,7 @@ function PatientDetails() {
     setAge(calculateAge(new Date()));
     setMedicalCondition("Follow-up");
     setMedicalSpecialty("");
+    setMedicalExam("");
     setDetails("");
     setImageData(null);
     setImageFrozen(false);
@@ -168,7 +183,6 @@ function PatientDetails() {
     setImageExistingData(null);
   };
 
-  
   return (
     <form className="form__body">
       <h1 className="form__header"> Patient Details</h1>
@@ -263,6 +277,16 @@ function PatientDetails() {
           <option value="">Select One</option>
           {medicalSpecialtyOptions.map((option) => (
             <option value={option} key={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="centralized">
+        <h3>Requested Exam:</h3>
+        <select value={medicalExam} onChange={handleMedicalExamChange}>
+          {medicalExamOptions.map((option) => (
+            <option key={option} value={option}>
               {option}
             </option>
           ))}
